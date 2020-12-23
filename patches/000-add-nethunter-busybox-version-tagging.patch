@@ -1,0 +1,26 @@
+From 70c760fb7eb8789dc6f35caee0d9aba734297d9a Mon Sep 17 00:00:00 2001
+From: Re4son <3520622-re4son@users.noreply.gitlab.com>
+Date: Wed, 23 Dec 2020 15:12:40 +1100
+Subject: [PATCH] Add nethunter busybox version tagging
+
+Signed-off-by: Re4son <3520622-re4son@users.noreply.gitlab.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 045fbad9a..14fa1dc6f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ VERSION = 1
+ PATCHLEVEL = 33
+ SUBLEVEL = 0
+-EXTRAVERSION = .git
++EXTRAVERSION = -nethunter
+ NAME = Unnamed
+ 
+ # *DOCUMENTATION*
+-- 
+2.29.2
+

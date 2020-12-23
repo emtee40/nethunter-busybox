@@ -1,0 +1,28 @@
+From: Chris Renshaw <osm0sis@outlook.com>
+Date: Sun, 22 Jul 2018 02:23:16 -0300
+Subject: [PATCH] ftpd/pw_encrypt: fix glibc include on Android
+
+Rebased for busybox 1.33 by Re4son <re4son@kali.org>
+---
+ libbb/pw_encrypt.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/libbb/pw_encrypt.c b/libbb/pw_encrypt.c
+index 86455cd0d..a6cbd52a7 100644
+--- a/libbb/pw_encrypt.c
++++ b/libbb/pw_encrypt.c
+@@ -6,9 +6,11 @@
+  *
+  * Licensed under GPLv2 or later, see file LICENSE in this source tree.
+  */
++#ifndef __ANDROID__
+ #if !ENABLE_USE_BB_CRYPT
+ #include <crypt.h>
+ #endif
++#endif
+ #include "libbb.h"
+ 
+ /* static const uint8_t ascii64[] ALIGN1 =
+-- 
+2.17.0
+

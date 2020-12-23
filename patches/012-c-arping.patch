@@ -1,0 +1,33 @@
+From 45532495ba31f0a422ad7b2193fd4f0869a604b0 Mon Sep 17 00:00:00 2001
+From: Re4son <3520622-re4son@users.noreply.gitlab.com>
+Date: Wed, 23 Dec 2020 16:04:19 +1100
+Subject: [PATCH] fix arping: include if_arp.h (for arphdr)
+
+Signed-off-by: Re4son <3520622-re4son@users.noreply.gitlab.com>
+---
+ networking/arping.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/networking/arping.c b/networking/arping.c
+index d44d7d697..b35a33a67 100644
+--- a/networking/arping.c
++++ b/networking/arping.c
+@@ -14,6 +14,7 @@
+ //applet:IF_ARPING(APPLET(arping, BB_DIR_USR_SBIN, BB_SUID_DROP))
+ 
+ //kbuild:lib-$(CONFIG_ARPING) += arping.o
++//kbuild:lib-$(CONFIG_ARPING) += ether_ntoa_r.o
+ 
+ //usage:#define arping_trivial_usage
+ //usage:       "[-fqbDUA] [-c CNT] [-w TIMEOUT] [-I IFACE] [-s SRC_IP] DST_IP"
+@@ -36,6 +37,7 @@
+ #include <net/if.h>
+ #include <netinet/ether.h>
+ #include <netpacket/packet.h>
++#include <linux/if_arp.h> /* for arphdr */
+ 
+ #include "libbb.h"
+ #include "common_bufsiz.h"
+-- 
+2.29.2
+
