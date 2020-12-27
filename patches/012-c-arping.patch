@@ -1,0 +1,32 @@
+From 41f281301e57054f4b39ef5762e1b9d0feb03aa2 Mon Sep 17 00:00:00 2001
+From: Re4son <3520622-re4son@users.noreply.gitlab.com>
+Date: Sun, 27 Dec 2020 16:57:05 +1100
+Subject: [PATCH] fix arping: include if_arp.h (for arphdr) and add mempcpy.c
+
+fixing arping also requires adding ether_ntoa_r, see 'fix udhcpd' patch
+
+patch from 'struct-arphdr' and 'mempcpy-function' by Dan Drown
+http://dan.drown.org/android/src/busybox/
+
+Rebased for 1.31.1 by Re4son <re4son@kali.org>
+
+Signed-off-by: Re4son <3520622-re4son@users.noreply.gitlab.com>
+---
+ networking/arping.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/networking/arping.c b/networking/arping.c
+index 52f56e3d9..43fbd70b8 100644
+--- a/networking/arping.c
++++ b/networking/arping.c
+@@ -38,6 +38,7 @@
+ #include <net/if.h>
+ #include <netinet/ether.h>
+ #include <netpacket/packet.h>
++#include <linux/if_arp.h> /* for arphdr */
+ 
+ #include "libbb.h"
+ #include "common_bufsiz.h"
+-- 
+2.29.2
+
