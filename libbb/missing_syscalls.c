@@ -37,4 +37,20 @@ int tcdrain(int fd)
 	return ioctl(fd, TCSBRK, 1);
 }
 # endif
+
+int shmget(key_t key, size_t size, int shmflg)
+{
+  return syscall(__NR_shmget, key, size, shmflg);
+}
+
+int msgget(key_t key, int msgflg)
+{
+  return syscall(__NR_msgget, key, msgflg);
+}
+
+int semget(key_t key, int nsems, int semflg)
+{
+  return syscall(__NR_semget, key, nsems, semflg);
+}
+
 #endif
