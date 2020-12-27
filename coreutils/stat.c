@@ -380,19 +380,31 @@ static void FAST_FUNC print_stat(char *pformat, const char m,
 		strcat(pformat, "lu");
 		printf(pformat, (unsigned long) statbuf->st_blksize);
 	} else if (m == 'x') {
+        #if defined(ANDROID) || defined(__ANDROID__)
+		printfs(pformat, human_time(&statbuf->st_atime));
+        #else
 		printfs(pformat, human_time(&statbuf->st_atim));
+        #endif
 	} else if (m == 'X') {
 		strcat(pformat, TYPE_SIGNED(time_t) ? "ld" : "lu");
 		/* note: (unsigned long) would be wrong:
 		 * imagine (unsigned long64)int32 */
 		printf(pformat, (long) statbuf->st_atime);
 	} else if (m == 'y') {
+        #if defined(ANDROID) || defined(__ANDROID__)
+		printfs(pformat, human_time(&statbuf->st_mtime));
+        #else
 		printfs(pformat, human_time(&statbuf->st_mtim));
+        #endif
 	} else if (m == 'Y') {
 		strcat(pformat, TYPE_SIGNED(time_t) ? "ld" : "lu");
 		printf(pformat, (long) statbuf->st_mtime);
 	} else if (m == 'z') {
+        #if defined(ANDROID) || defined(__ANDROID__)
+		printfs(pformat, human_time(&statbuf->st_ctime));
+        #else
 		printfs(pformat, human_time(&statbuf->st_ctim));
+        #endif
 	} else if (m == 'Z') {
 		strcat(pformat, TYPE_SIGNED(time_t) ? "ld" : "lu");
 		printf(pformat, (long) statbuf->st_ctime);
