@@ -14,8 +14,8 @@ index 045fbad9a..14fa1dc6f 100644
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  VERSION = 1
- PATCHLEVEL = 31
- SUBLEVEL = 1
+ PATCHLEVEL = 32
+ SUBLEVEL = 0
 -EXTRAVERSION =
 +EXTRAVERSION = -nethunter
  NAME = Unnamed
