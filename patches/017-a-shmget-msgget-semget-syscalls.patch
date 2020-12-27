@@ -1,0 +1,42 @@
+From 6349ad0546e2d132493d11d36fc9bbf8202972a0 Mon Sep 17 00:00:00 2001
+From: Re4son <3520622-re4son@users.noreply.gitlab.com>
+Date: Sun, 27 Dec 2020 18:14:10 +1100
+Subject: [PATCH] android syscalls: shmget/msgget/semget
+
+Patch modified by Tias Guns <tias@ulyssis.org> from 'no-sys-shm,msg,sem' by Dan Drown
+http://dan.drown.org/android/src/busybox/
+Rebased for busybox 1.31.1 by Re4son <re4son@kali.org>
+
+Signed-off-by: Re4son <3520622-re4son@users.noreply.gitlab.com>
+---
+ libbb/missing_syscalls.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/libbb/missing_syscalls.c b/libbb/missing_syscalls.c
+index 87cf59b3d..470625634 100644
+--- a/libbb/missing_syscalls.c
++++ b/libbb/missing_syscalls.c
+@@ -45,4 +45,20 @@ int tcdrain(int fd)
+ 	return ioctl(fd, TCSBRK, 1);
+ }
+ # endif
++
++int shmget(key_t key, size_t size, int shmflg)
++{
++  return syscall(__NR_shmget, key, size, shmflg);
++}
++
++int msgget(key_t key, int msgflg)
++{
++  return syscall(__NR_msgget, key, msgflg);
++}
++
++int semget(key_t key, int nsems, int semflg)
++{
++  return syscall(__NR_semget, key, nsems, semflg);
++}
++
+ #endif
+-- 
+2.29.2
+
