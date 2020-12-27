@@ -5,6 +5,7 @@ Subject: [PATCH] fix hush, add glob and sigisemptyset
 Patch by Tias Guns <tias@ulyssis.org>, based on 'glob' by Dan Drown
 http://dan.drown.org/android/src/busybox/
 Rebased for busybox 1.26.1 by Chris Renshaw <osm0sis@outlook.com>
+Rabsed for busybox 1.32.0 by Re4son <re4son@kali.org>
 ---
  shell/glob.c          |  786 +++++++++++++++++++++++++++++++++++++++++++++++++
  shell/glob.h          |  113 +++++++
@@ -930,15 +931,11 @@ diff --git a/shell/hush.c b/shell/hush.c
 index fecc892..52c925d 100644
 --- a/shell/hush.c
 +++ b/shell/hush.c
-@@ -320,8 +320,11 @@
+@@ -333,6 +333,7 @@
  //applet:IF_BASH_IS_HUSH(APPLET_ODDNAME(bash, hush, BB_DIR_BIN, BB_SUID_DROP, hush))
 
- //kbuild:lib-$(CONFIG_HUSH) += hush.o match.o shell_common.o
-+//kbuild:lib-$(CONFIG_HUSH) += glob.o sigisemptyset.o
- //kbuild:lib-$(CONFIG_SH_IS_HUSH) += hush.o match.o shell_common.o
-+//kbuild:lib-$(CONFIG_SH_IS_HUSH) += glob.o sigisemptyset.o
- //kbuild:lib-$(CONFIG_BASH_IS_HUSH) += hush.o match.o shell_common.o
-+//kbuild:lib-$(CONFIG_BASH_IS_HUSH) += glob.o sigisemptyset.o
+ //kbuild:lib-$(CONFIG_SHELL_HUSH) += hush.o match.o shell_common.o
++//kbuild:lib-$(CONFIG_SHELL_HUSH) += glob.o sigisemptyset.o
  //kbuild:lib-$(CONFIG_HUSH_RANDOM_SUPPORT) += random.o
 
  /* -i (interactive) is also accepted,
