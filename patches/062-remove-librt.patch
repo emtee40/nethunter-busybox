@@ -1,0 +1,41 @@
+From 15dcbf2dfe51b79a3a266b4bf6dd07166e7b8c9f Mon Sep 17 00:00:00 2001
+From: Re4son <3520622-re4son@users.noreply.gitlab.com>
+Date: Mon, 28 Dec 2020 11:00:53 +1100
+Subject: [PATCH] Remove librt
+
+Signed-off-by: Re4son <3520622-re4son@users.noreply.gitlab.com>
+---
+ Makefile.flags | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/Makefile.flags b/Makefile.flags
+index cff935ff5..4378b272d 100644
+--- a/Makefile.flags
++++ b/Makefile.flags
+@@ -149,6 +149,7 @@ endif
+ #  echo 'int main(void){return 0;}' | $(CC) $(CFLAGS) -lcrypt -o /dev/null -xc -
+ # fall back to using a temp file:
+ CRYPT_AVAILABLE := $(shell echo 'int main(void){return 0;}' >crypttest.c; $(CC) $(CFLAGS) -lcrypt -o /dev/null crypttest.c >/dev/null 2>&1 && echo "y"; rm crypttest.c)
++ifneq "$(or $(ANDROID),$(__ANDROID__))" ""
+ ifeq ($(CRYPT_AVAILABLE),y)
+ LDLIBS += m rt crypt
+ else
+@@ -156,6 +157,15 @@ LDLIBS += m rt
+ endif
+ # libm may be needed for dc, awk, ntpd
+ # librt may be needed for clock_gettime()
++else
++ifeq ($(CRYPT_AVAILABLE),y)
++LDLIBS += m crypt
++else
++LDLIBS += m
++endif
++# libm may be needed for dc, awk, ntpd
++# librt may be needed for clock_gettime()
++endif
+ 
+ # libpam may use libpthread, libdl and/or libaudit.
+ # On some platforms that requires an explicit -lpthread, -ldl, -laudit.
+-- 
+2.29.2
+
